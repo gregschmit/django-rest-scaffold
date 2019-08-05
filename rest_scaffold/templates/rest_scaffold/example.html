@@ -1,0 +1,28 @@
+{% load rest_scaffold %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>RESTScaffold (+AutoREST) Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rest-scaffold/dist/rest-scaffold.css" />
+  {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+
+  <p>This is an example page that renders a REST scaffold for every model that we detect. API is build with AutoREST.</p>
+
+  <div style="width: 100%;">
+    {% for model, app in models %}
+      {% rest_scaffold model app api_url='api' %}
+    {% endfor %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/rest-scaffold/dist/rest-scaffold.js"></script>
+  {% block javascripts %}{% endblock %}
+</body>
+
+</html>

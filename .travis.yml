@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install -r requirements-test.txt
+  - pip install coverage
+  - pip install coveralls
+
+script:
+  - coverage run manage.py test
+
+after_success:
+  coveralls
