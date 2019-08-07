@@ -27,7 +27,7 @@ How to Use
 
 .. code-block:: shell
 
-    $ pip install django-rest-scaffold
+Clone and install this package.
 
 Include ``rest_scaffold`` in your ``INSTALLED_APPS``.
 
