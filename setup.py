@@ -1,7 +1,7 @@
 import os
 from setuptools import find_packages, setup
 
-import rest_scaffold
+from . import rest_scaffold
 
 
 # allow setup.py to be run from any path
@@ -12,7 +12,7 @@ with open('README.rst') as f:
     long_description = f.read()
 
 setup(
-    name='django-rest-scaffold',
+    name='django-rest-scaffolds',
     version=rest_scaffold.__version__,
     packages=find_packages(),
     install_requires=['Django>=2', 'djangorestframework>=3'],

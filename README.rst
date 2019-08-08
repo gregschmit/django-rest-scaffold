@@ -6,10 +6,16 @@ Django REST Scaffold
 .. image:: https://travis-ci.org/gregschmit/django-rest-scaffold.svg?branch=master
     :target: https://travis-ci.org/gregschmit/django-rest-scaffold
 
+.. image:: https://img.shields.io/pypi/v/django-rest-scaffold
+    :alt: PyPI
+    :target: https://pypi.org/project/django-rest-scaffolds/
+
 .. image:: https://coveralls.io/repos/github/gregschmit/django-rest-scaffold/badge.svg?branch=master
     :target: https://coveralls.io/github/gregschmit/django-rest-scaffold?branch=master
 
 Source: https://github.com/gregschmit/django-rest-scaffold
+
+PyPI: https://pypi.org/project/django-rest-scaffolds/
 
 REST Scaffold is a Django app that provides a template tag helper for using
 the JavaScript library ``rest-scaffold.js``.
@@ -27,7 +33,7 @@ How to Use
 
 .. code-block:: shell
 
-Clone and install this package.
+    $ pip install django-rest-scaffolds
 
 Include ``rest_scaffold`` in your ``INSTALLED_APPS``.
 
