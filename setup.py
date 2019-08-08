@@ -1,7 +1,7 @@
 import os
 from setuptools import find_packages, setup
 
-from . import rest_scaffold
+import rest_scaffold
 
 
 # allow setup.py to be run from any path
