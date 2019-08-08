@@ -43,13 +43,13 @@ Build your API or create one using
 Then, insert a scaffold using the ``rest_scaffold`` template tag. At the top
 you'll need to load the template tag:
 
-..code-block:: python
+.. code-block:: python
 
     {% load rest_scaffold %}
 
 And then wherever you want in the HTML page, inject the scaffold:
 
-..code-block:: python
+.. code-block:: python
 
     {% rest_scaffold 'user' api_url='api' %}
 
