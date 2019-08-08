@@ -6,7 +6,7 @@ Django REST Scaffold
 .. image:: https://travis-ci.org/gregschmit/django-rest-scaffold.svg?branch=master
     :target: https://travis-ci.org/gregschmit/django-rest-scaffold
 
-.. image:: https://img.shields.io/pypi/v/django-rest-scaffold
+.. image:: https://img.shields.io/pypi/v/django-rest-scaffolds
     :alt: PyPI
     :target: https://pypi.org/project/django-rest-scaffolds/
 
