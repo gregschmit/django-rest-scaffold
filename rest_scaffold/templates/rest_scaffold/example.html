@@ -16,7 +16,7 @@
 
   <div style="width: 100%;">
     {% for model, app in models %}
-      {% rest_scaffold model app api_url='api' %}
+      {% rest_scaffold model app api_root='api' %}
     {% endfor %}
   </div>
 

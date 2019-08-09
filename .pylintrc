@@ -49,7 +49,7 @@ valid-classmethod-first-arg=cls
 valid-metaclass-classmethod-first-arg=cls
 
 [DESIGN]
-max-locals=18
+max-locals=25
 
 [EXCEPTIONS]
 overgeneral-exceptions=BaseException,

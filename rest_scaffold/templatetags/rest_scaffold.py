@@ -46,12 +46,12 @@ def comma_parse(comma_list):
 
 
 @register.inclusion_tag('rest_scaffold/_scaffold.html', takes_context=True)
-def rest_scaffold(context, model, app='', api_url='', fields='', exclude_from_form='', exclude_from_table='', **kwargs):
+def rest_scaffold(context, model, app='', api_root='', **kwargs):
     """
     Take name of app and model, return context for template that includes a
     single variable: the configuration for the rest scaffold.
     """
-    fields = comma_parse(fields)
+    fields = comma_parse(kwargs.get('fields', ''))
     model = get_model(model, app)
     if isinstance(model, dict):
         return model
@@ -59,6 +59,8 @@ def rest_scaffold(context, model, app='', api_url='', fields='', exclude_from_fo
     # field configuration
     config_fields = []
     mf = model._meta.get_fields()
+    exclude_from_form = comma_parse(kwargs.get('exclude_from_form', ''))
+    exclude_from_table = comma_parse(kwargs.get('exclude_from_table', ''))
     for f in filter(lambda x: not issubclass(type(x), ForeignObjectRel), mf):
         if fields and f.name not in fields:
             continue
@@ -83,19 +85,21 @@ def rest_scaffold(context, model, app='', api_url='', fields='', exclude_from_fo
             field_opts['title'] = str(f.verbose_name)
         except AttributeError:
             field_opts['title'] = str(f.name)
-        if f.name in comma_parse(exclude_from_form):
+        if f.name in exclude_from_form:
             field_opts['on_form'] = False
-        if f.name in comma_parse(exclude_from_table):
+        if f.name in exclude_from_table:
             field_opts['on_table'] = False
         config_fields.append(field_opts)
     # ok, have model -- need to give context the model, app, fields, url
+    api_url = kwargs.get('api_url', None)
+    url = api_url or os.path.join('/', api_root, app, model.__name__.lower())
     r = {
         'title': model._meta.verbose_name_plural.title(),
         'subtitle': "{0} / {1}".format(app, model.__name__),
         'recordTitle': model._meta.verbose_name.title(),
         'pkField': model._meta.pk.name,
         'fields': config_fields,
-        'url': os.path.join('/', api_url, app, model.__name__.lower()),
+        'url': url,
         **kwargs,
     }
     csrf_token = context.get("csrf_token", None)
