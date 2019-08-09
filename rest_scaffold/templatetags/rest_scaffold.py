@@ -51,7 +51,7 @@ def rest_scaffold(context, model, app='', api_root='', **kwargs):
     Take name of app and model, return context for template that includes a
     single variable: the configuration for the rest scaffold.
     """
-    fields = comma_parse(kwargs.get('fields', ''))
+    fields = comma_parse(kwargs.pop('fields', ''))
     model = get_model(model, app)
     if isinstance(model, dict):
         return model
@@ -59,8 +59,8 @@ def rest_scaffold(context, model, app='', api_root='', **kwargs):
     # field configuration
     config_fields = []
     mf = model._meta.get_fields()
-    exclude_from_form = comma_parse(kwargs.get('exclude_from_form', ''))
-    exclude_from_table = comma_parse(kwargs.get('exclude_from_table', ''))
+    exclude_from_form = comma_parse(kwargs.pop('exclude_from_form', ''))
+    exclude_from_table = comma_parse(kwargs.pop('exclude_from_table', ''))
     for f in filter(lambda x: not issubclass(type(x), ForeignObjectRel), mf):
         if fields and f.name not in fields:
             continue
@@ -91,7 +91,7 @@ def rest_scaffold(context, model, app='', api_root='', **kwargs):
             field_opts['on_table'] = False
         config_fields.append(field_opts)
     # ok, have model -- need to give context the model, app, fields, url
-    api_url = kwargs.get('api_url', None)
+    api_url = kwargs.pop('api_url', None)
     url = api_url or os.path.join('/', api_root, app, model.__name__.lower())
     r = {
         'title': model._meta.verbose_name_plural.title(),
