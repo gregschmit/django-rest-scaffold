@@ -24,7 +24,7 @@ class RestScaffoldTemplateTagTestCase(TestCase):
             {'csrf_token': 'example_csrf_token'},
             'user',
             'auth',
-            api_url='/api',
+            api_root='/api',
             fields='id,username',
         )['configuration'])
         expected_config = json.loads(json.dumps({
@@ -47,7 +47,7 @@ class RestScaffoldTemplateTagTestCase(TestCase):
         s = json.loads(rest_scaffold(
             {'csrf_token': 'example_csrf_token'},
             'group',
-            api_url='/api',
+            api_root='/api',
             fields='id,name',
         )['configuration'])
         expected_config = json.loads(json.dumps({
@@ -70,7 +70,7 @@ class RestScaffoldTemplateTagTestCase(TestCase):
         s = json.loads(rest_scaffold(
             {'csrf_token': 'example_csrf_token'},
             Group,
-            api_url='/api',
+            api_root='/api',
             fields='id,name',
         )['configuration'])
         expected_config = json.loads(json.dumps({
