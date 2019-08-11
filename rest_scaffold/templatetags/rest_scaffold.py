@@ -9,6 +9,7 @@ import os
 
 from django import template
 from django.apps import apps
+from django.conf import settings
 from django.db import models
 from django.db.models.fields.reverse_related import ForeignObjectRel
 from django.forms import widgets
@@ -51,12 +52,21 @@ def rest_scaffold(context, model, app='', api_root='', **kwargs):
     Take name of app and model, return context for template that includes a
     single variable: the configuration for the rest scaffold.
     """
-    fields = comma_parse(kwargs.pop('fields', ''))
+    # get paging details
+    is_paged = kwargs.pop('is_paged', None)
+    if is_paged is None:
+        rest_framework_config = getattr(settings, 'REST_FRAMEWORK', {})
+        if rest_framework_config.get('DEFAULT_PAGINATION_CLASS', None):
+            is_paged = True
+        else:
+            is_paged = False
+    # get model/app
     model = get_model(model, app)
     if isinstance(model, dict):
         return model
     app = model._meta.app_label
     # field configuration
+    fields = comma_parse(kwargs.pop('fields', ''))
     config_fields = []
     mf = model._meta.get_fields()
     exclude_from_form = comma_parse(kwargs.pop('exclude_from_form', ''))
@@ -100,6 +110,7 @@ def rest_scaffold(context, model, app='', api_root='', **kwargs):
         'pkField': model._meta.pk.name,
         'fields': config_fields,
         'url': url,
+        'apiType': 'django-paged' if is_paged else 'plain',
         **kwargs,
     }
     csrf_token = context.get("csrf_token", None)
