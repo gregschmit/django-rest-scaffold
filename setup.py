@@ -12,7 +12,7 @@ with open("README.rst") as f:
     long_description = f.read()
 
 setup(
-    name="django-rest-scaffolds",
+    name="django-rest-scaffold",
     version=rest_scaffold.__version__,
     packages=find_packages(),
     install_requires=["Django>=2", "djangorestframework>=3"],
