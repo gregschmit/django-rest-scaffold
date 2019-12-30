@@ -18,14 +18,15 @@ Django REST Scaffold
 Source: https://github.com/gregschmit/django-rest-scaffold
 
 REST Scaffold is a Django app that provides a template tag helper for using
-the JavaScript library ``rest-scaffold.js``.
+the `rest-scaffold.js <https://github.com/gregschmit/rest-scaffold>`_ library.
 
-**The Problem**: Configuring ``rest-scaffold.js`` involves writing a JSON inside
-an HTML ``div`` element's ``data-rest-scaffold`` property, which is annoying
-when a great deal of the configuration can be figured out the Django framework.
+**The Problem**: AJAX is nice because if you have an API, then you don't need separate
+pages/views for listing, creating, and updating model instances. But writing custom AJAX
+tables on the frontend can be time-consuming.
 
-**The Solution**: This app provides a template tag that allows you to just
-specify the model and it will build the JSON configuration for you.
+**The Solution**: This app provides a template tag that uses ``rest-scaffold.js`` to
+quickly render "scaffolds", which are tables that have controls which interact with your
+API.
 
 
 How to Use
@@ -33,7 +34,7 @@ How to Use
 
 .. code-block:: shell
 
-    $ pip install git+https://github.com/gregschmit/django-rest-scaffold
+    $ pip install django-rest-scaffold
 
 Include ``rest_scaffold`` in your ``INSTALLED_APPS``.
 
@@ -51,7 +52,7 @@ And then wherever you want in the HTML page, inject the scaffold:
 
 .. code-block:: python
 
-    {% rest_scaffold 'user' api_url='api' %}
+    {% rest_scaffold 'user' api_root='api' %}
 
 In the above example, you would see a scaffold for the ``User`` model.
 
@@ -70,9 +71,8 @@ To collaborators: don't push using the ``--force`` option.
 Dev Quickstart
 ==============
 
-REST Scaffold comes with a ``settings.py`` file, technically making it a Django
-project as well as a Django app. First clone, the repository into a location of
-your choosing:
+REST Scaffold comes with a ``settings.py`` file, technically making it a Django project
+as well as a Django app. First clone, the repository into a location of your choosing:
 
 .. code-block:: shell
 
@@ -90,5 +90,5 @@ environment requirements, and then migrate and run the local development server:
     ...
     $ python manage.py runserver
 
-Then you can see the api at http://127.0.0.1:8000/api/, and you can see the
-example scaffold page at http://127.0.0.1:8000/example/.
+Then you can see the api at http://127.0.0.1:8000/api/, and you can see the example
+scaffold page at http://127.0.0.1:8000/example/.
