@@ -27,6 +27,11 @@ def get_setting(name):
     return None
 
 
+# app-specific settings
+REST_SCAFFOLD_JS_SRC = "https://cdn.jsdelivr.net/npm/rest-scaffold/dist"
+REST_SCAFFOLD_JS_SRC_DEV = "/static"  # symlink to rest-scaffold.js local build dir
+
+
 # setting `base_dir` before defaults since it needs to be used by `DATABASES`.
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

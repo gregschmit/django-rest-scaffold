@@ -9,13 +9,21 @@ import os
 
 from django import template
 from django.apps import apps
-from django.conf import settings
-from django.db import models
+from django.db.models import Model, ForeignKey, OneToOneField, ManyToManyField
 from django.db.models.fields.reverse_related import ForeignObjectRel
 from django.forms import widgets
 
+from rest_scaffold.settings import get_setting
+
 
 register = template.Library()
+
+
+@register.simple_tag
+def get_rest_scaffold_js(dev=None):
+    if dev:
+        return get_setting("REST_SCAFFOLD_JS_SRC_DEV")
+    return get_setting("REST_SCAFFOLD_JS_SRC")
 
 
 def get_model(model, app=""):
@@ -35,7 +43,7 @@ def get_model(model, app=""):
                 if m.__name__.lower() == model.lower():
                     return m
             return {"error": "model not found"}
-    elif isinstance(model, type) and issubclass(model, models.Model):
+    elif isinstance(model, type) and issubclass(model, Model):
         if model not in apps.get_models():
             return {"error": "model not installed"}
         return model
@@ -55,7 +63,7 @@ def rest_scaffold(context, model, app="", api_root="", **kwargs):
     # get paging details
     is_paged = kwargs.pop("is_paged", None)
     if is_paged is None:
-        rest_framework_config = getattr(settings, "REST_FRAMEWORK", {})
+        rest_framework_config = get_setting("REST_FRAMEWORK") or {}
         if rest_framework_config.get("DEFAULT_PAGINATION_CLASS", None):
             is_paged = True
         else:
@@ -97,6 +105,19 @@ def rest_scaffold(context, model, app="", api_root="", **kwargs):
             field_opts["on_form"] = False
         if f.name in exclude_from_table:
             field_opts["on_table"] = False
+        if hasattr(f, "choices") and f.choices:
+            # render the choices
+            print(f.choices)
+            field_opts["choices"] = [
+                [y if isinstance(y, (int, float)) else str(y) for y in x]
+                for x in f.choices
+            ]
+        elif isinstance(f, (ForeignKey, OneToOneField, ManyToManyField)):
+            # TODO: probably should provide a list of choices to the scaffold, but also
+            #  probably want to update them regularly. Maybe we just provide the
+            #  model/API_URL/fk_field/display_field for the relationship and
+            #  rest-scaffold can fetch the options when building the form.
+            pass
         config_fields.append(field_opts)
     # ok, have model -- need to give context the model, app, fields, url
     api_url = kwargs.pop("api_url", None)
@@ -111,7 +132,9 @@ def rest_scaffold(context, model, app="", api_root="", **kwargs):
         "apiType": "django-paged" if is_paged else "plain",
         **kwargs,
     }
+
     csrf_token = context.get("csrf_token", None)
     if csrf_token:
         r["csrfToken"] = str(csrf_token)
+
     return {"configuration": json.dumps(r)}

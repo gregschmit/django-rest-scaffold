@@ -6,7 +6,7 @@
   <title>RESTScaffold (+AutoREST) Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rest-scaffold/dist/rest-scaffold.css" />
+  <link rel="stylesheet" href="{% get_rest_scaffold_js "dev" %}/rest-scaffold.css" />
   {% block stylesheets %}{% endblock %}
 </head>
 
@@ -21,7 +21,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/rest-scaffold/dist/rest-scaffold.js"></script>
+  <script src="{% get_rest_scaffold_js "dev" %}/rest-scaffold.js"></script>
   {% block javascripts %}{% endblock %}
 </body>
 
