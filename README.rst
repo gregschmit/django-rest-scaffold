@@ -7,6 +7,10 @@ Django REST Scaffold
     :alt: TravisCI
     :target: https://travis-ci.org/gregschmit/django-rest-scaffold
 
+.. image:: https://img.shields.io/pypi/v/django-rest-scaffold
+    :alt: PyPI
+    :target: https://pypi.org/project/django-rest-scaffold/
+
 .. image:: https://coveralls.io/repos/github/gregschmit/django-rest-scaffold/badge.svg?branch=master
     :alt: Coveralls
     :target: https://coveralls.io/github/gregschmit/django-rest-scaffold?branch=master
